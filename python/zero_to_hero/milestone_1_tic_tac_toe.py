@@ -111,9 +111,9 @@ while player1.upper() not in valid_markers:
 
 player1 = player1.upper()
 
-if player1.upper() == "X":
+if player1 == "X":
     player2 = "O"
-elif player1.upper() =="O":
+elif player1 =="O":
     player2 = "X"
 
 while winner == False:
