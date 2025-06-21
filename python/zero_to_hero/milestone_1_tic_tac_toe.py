@@ -8,6 +8,7 @@ row3 = [" ", " ", " "]
 game_board = [row1,row2,row3]
 
 winner = False
+tie = False
 player1_turn = True
 player2_turn = False
 
@@ -44,7 +45,7 @@ def player_input():
             index_valid = True
         else:
             print("Outside of index values")
-
+    print()
     return row, index
 
 def place_marker(row_index: tuple, marker: str, board: list):
@@ -57,6 +58,7 @@ def place_marker(row_index: tuple, marker: str, board: list):
             marker_placed = True
         else:
             print("There's already a marker in that space")
+            print()
             row, index = player_input()
 
 # WINNING BOARDS
@@ -87,13 +89,6 @@ def winning_boards(row1: list, row2: list, row3: list):
 
     return line
 
-def check_line(text: str):
-    valid_lines = ["XXX", "OOO"]
-    if text in valid_lines:
-        return True
-    else:
-        return False
-
 def check_tie(board:list):
     marker_count = 0
     for row in board:
@@ -102,6 +97,13 @@ def check_tie(board:list):
                 marker_count += 1
     return marker_count
         
+def check_line(text: str):
+    valid_lines = ["XXX", "OOO"]
+    if text in valid_lines:
+        return True
+    else:
+        return False
+
 player1 = input("Player 1, please select your marker: 'X' or 'O': ")
 while player1.upper() not in valid_markers:
     print("Invalid marker")
@@ -109,28 +111,39 @@ while player1.upper() not in valid_markers:
 
 player1 = player1.upper()
 
-if player1 == "X":
+if player1.upper() == "X":
     player2 = "O"
-elif player1 =="O":
+elif player1.upper() =="O":
     player2 = "X"
 
 while winner == False:
 
     for row in game_board:
         print(row)
-    
+    print()    
     if player1_turn == True:
         print("Player 1's turn")
         place_marker(player_input(), player1, game_board)
-        player1_turn = False
-        player2_turn = True
+        player1_turn, player2_turn = False, True
     elif player2_turn == True:
         print("Player 2's turn")
         place_marker(player_input(), player2, game_board)
-        player1_turn = True
-        player2_turn = False
-        
+        player1_turn, player2_turn = True, False       
+    
     winner = check_line(winning_boards(row1, row2, row3))
+
+    if tie == False:
+        if check_tie(game_board) == 9:
+            tie = True
+            break
+            
+if winner == True:
+    if player1_turn == False:
+        print("Player 1 wins")
+    elif player2_turn == False:
+        print("Player 2 wins")
+elif tie == True:
+    print("Tie game")
 
 for row in game_board:
     print(row)
