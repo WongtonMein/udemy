@@ -95,6 +95,8 @@ while player1.upper() not in valid_markers:
     print("Invalid marker")
     player1 = input("Player 1, please select your marker: 'X' or 'O': ")
 
+player1 = player1.upper()
+
 if player1 == "X":
     player2 = "O"
 elif player1 =="O":
