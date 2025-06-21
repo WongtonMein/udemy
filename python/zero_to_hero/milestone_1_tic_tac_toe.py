@@ -94,6 +94,14 @@ def check_line(text: str):
     else:
         return False
 
+def check_tie(board:list):
+    marker_count = 0
+    for row in board:
+        for marker in row:
+            if marker in valid_markers:
+                marker_count += 1
+    return marker_count
+        
 player1 = input("Player 1, please select your marker: 'X' or 'O': ")
 while player1.upper() not in valid_markers:
     print("Invalid marker")
