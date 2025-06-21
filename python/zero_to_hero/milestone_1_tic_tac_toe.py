@@ -49,11 +49,15 @@ def player_input():
 
 def place_marker(row_index: tuple, marker: str, board: list):
     row, index = row_index
-    if board[row-1][index-1] == " ":
-        board[row-1][index-1] = marker
-    else:
-        print("There's already a marker in that space")
-        player_input()
+    marker_placed = False
+
+    while marker_placed == False:
+        if board[row-1][index-1] == " ":
+            board[row-1][index-1] = marker
+            marker_placed = True
+        else:
+            print("There's already a marker in that space")
+            row, index = player_input()
 
 # WINNING BOARDS
 def winning_boards(row1: list, row2: list, row3: list):
